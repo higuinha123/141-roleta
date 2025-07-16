@@ -1,7 +1,5 @@
 <?php
 
-require_once 'Crud.php';
-
 class Usuario
 {
     private $conexao;
@@ -11,18 +9,13 @@ class Usuario
     public $cpf;
     public $email;
     public $senha;
-    public $data_nasc;
+    public $opcoes = [];
+    public $interesses = [];
+
 
     public function __construct($bd)
     {
         $this->conexao = $bd;
-    }
-
-    public function getIdUsuario($id)
-    {
-        $query = "SELECT * FROM {$this->table} WHERE id = {$this->$id}";
-        $resultado = $this->conexao->query($query);
-        return $resultado->fetch_all(MSQLI_ASSOC);
     }
 
     public function cadastrar()

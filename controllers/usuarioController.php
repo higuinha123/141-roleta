@@ -1,30 +1,31 @@
 <?php
 
 require_once '../config/database.php';
-require_once '../models/Livro.php';
+require_once '../models/usuario.php';
 
-class livroController{
+class usuarioController{
   
-    public function cadastrar($titulo, $autor, $genero, $isbn, $descricao)
+    public function cadastrar($nome, $email, $senha, $cpf, $opcoes, $interesses)
     {
-        $database = new Banco();
-        $bd = $database->conectar();
+        $banco = new Banco();
+        $conexao = $banco->conectar();
 
-        $livro = new Livro($bd);
-        $livro->titulo = $titulo;
-        $livro->autor = $autor;
-        $livro->genero = $genero; 
-        $livro->isbn = $isbn; 
-        $livro->descricao = $descricao; 
-        $livro->statusLivro = 'disponível';
+        $usuario = new Usuario($conexao);
+        $usuario->nome = $nome;
+        $usuario->email = $email;
+        $usuario->senha = password_hash($senha, PASSWORD_DEFAULT);
+        $usuario->cpf = $cpf;
+        $usuario->opcoes = $opcoes;
+        $usuario->interesses = $interesses;
 
-        if($livro->cadastrar())
+        if($usuario->cadastrar())
         {
-            $bd->close();
-            header('Location: ../pages/Cadastro_Livro.php');
+            $banco->fecharConexao();
+            header('Location: ../views/usuarioCadastro.php?status=success');
         }else
         {
-            echo "Erro ao cadastrar livro";
+            echo "Erro ao cadastrar usuário";
         }
     }
+    
 }
