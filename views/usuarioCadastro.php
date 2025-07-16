@@ -2,14 +2,37 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro - At Home</title>
-    <link rel="stylesheet" href="cadastro.css">
-    <script defer src="js/templateLoader.js"></script>
-    <link rel="stylesheet" href="css/headerTemplateCss.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>By At Home</title>
+    <link rel="stylesheet" href="../css/cadastro.css">
+    <script defer src="../js/templateLoader.js"></script>
+    <link rel="stylesheet" href="../css/headerTemplateCss.css">
 </head>
 
 <body>
+
+<?php 
+
+require_once '../config/database.php';
+
+$banco = new Banco();
+$conexao = $banco->conectar();
+
+if ($conexao) {
+    echo "Conexão realizada com sucesso!";
+} else {
+    echo "Falha na conexão.";
+}
+
+$banco
+
+// opcional: fechar conexão
+$banco->fecharConexao();
+
+
+
+?>
+
     <header id="header">
 
     </header>
@@ -18,7 +41,7 @@
         <div class="form-container">
             <h1 class="form-title">Cadastro</h1>
             
-            <form id="cadastroForm">
+            <form id="cadastroForm" action="../pages/cadastroUsuario.php?acao=cadastrar" method="post">
                 <div class="form-group">
                     <input type="text" class="form-input" placeholder="Nome completo" required>
                 </div>
@@ -38,24 +61,26 @@
                 <div class="question-section">
                     <h2 class="question-title">Quais são do seu interesse?</h2>
                     <div class="options-grid">
-                        <button type="button" class="option-button" data-category="interesse" data-value="Móveis">Móveis</button>
-                        <button type="button" class="option-button" data-category="interesse" data-value="Plantas">Plantas</button>
-                        <button type="button" class="option-button" data-category="interesse" data-value="Organização">Organização</button>
-                        <button type="button" class="option-button" data-category="interesse" data-value="Limpeza">Limpeza</button>
-                        <button type="button" class="option-button" data-category="interesse" data-value="Ter gerais">Ter gerais</button>
-                        <button type="button" class="option-button" data-category="interesse" data-value="Higiene">Higiene</button>
+                        <button type="button" class="option-button" data-category="opcoes" data-value="bebidas">Bebidas</button>
+                        <button type="button" class="option-button" data-category="opcoes" data-value="snacks">Snacks</button>
+                        <button type="button" class="option-button" data-category="opcoes" data-value="chocolate">Chocolate</button>
+                        <button type="button" class="option-button" data-category="opcoes" data-value="congelados">Congelados</button>
+                        <button type="button" class="option-button" data-category="opcoes" data-value="temperos">Temperos</button>
+                        <button type="button" class="option-button" data-category="opcoes" data-value="higiene">Higiene</button>
+                        <button type="button" class="option-button" data-category="opcoes" data-value="outros">Outros</button>
                     </div>
                 </div>
 
                 <div class="question-section">
                     <h2 class="question-title">O que você faz?</h2>
                     <div class="options-grid">
-                        <button type="button" class="option-button" data-category="atividade" data-value="Trabalho">Trabalho</button>
-                        <button type="button" class="option-button" data-category="atividade" data-value="Faculdade">Faculdade</button>
-                        <button type="button" class="option-button" data-category="atividade" data-value="Cuido">Cuido</button>
-                        <button type="button" class="option-button" data-category="atividade" data-value="Trabalho e Faculdade">Trabalho e Faculdade</button>
-                        <button type="button" class="option-button" data-category="atividade" data-value="Empreendo">Empreendo</button>
-                        <button type="button" class="option-button" data-category="atividade" data-value="Cuido">Cuido</button>
+                        <button type="button" class="option-button" data-category="interesses" data-value="trabalho">Trabalho</button>
+                        <button type="button" class="option-button" data-category="interesses" data-value="videogame">Videogame</button>
+                        <button type="button" class="option-button" data-category="interesses" data-value="corrida">Corrida</button>
+                        <button type="button" class="option-button" data-category="interesses" data-value="futebol">Futebol</button>
+                        <button type="button" class="option-button" data-category="interesses" data-value="estudos">Estudos</button>
+                        <button type="button" class="option-button" data-category="interesses" data-value="churrasco">Churrasco</button>
+                        <button type="button" class="option-button" data-category="interesses" data-value="outros">Outros</button>
                     </div>
                 </div>
 
