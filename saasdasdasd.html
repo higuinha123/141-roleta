@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BUY WHEEL - Nomes na Roleta</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #E9E9F0;
+      padding: 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      display: flex;
+      gap: 2rem;
+      max-width: 1200px;
+      width: 100%;
+      flex-wrap: wrap;
+    }
+
+    .sidebar {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      min-width: 300px;
+    }
+
+    .main-content {
+      flex: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .card {
+      background-color: #fff;
+      padding: 1.5rem;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      text-align: center;
+    }
+
+    .buycoins-card h2,
+    .login-card h3,
+    .wheel-title {
+      font-weight: 600;
+      color: #333;
+    }
+
+    .buycoins-balance {
+      font-size: 3.5rem;
+      font-weight: 700;
+    }
+
+    .buycoins-balance span {
+      color: #FFD700;
+      font-size: 2rem;
+      vertical-align: middle;
+    }
+
+    .next-redeem {
+      background-color: #E0E0E0;
+      border-radius: 20px;
+      padding: 0.5rem 1rem;
+      display: inline-block;
+      margin: 1rem 0;
+    }
+
+    .redeem-button {
+      background: linear-gradient(90deg, #A155E3, #D035E3);
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .redeem-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(176, 92, 227, 0.4);
+    }
+
+    .login-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem;
+    }
+
+    .login-day {
+      background-color: #F8F8F8;
+      border: 2px solid #E0E0E0;
+      border-radius: 8px;
+      padding: 0.8rem 0;
+      font-weight: 700;
+    }
+
+    .day-premium {
+      grid-column: span 3;
+      background-color: #FFF8E1;
+      border-color: #FFD700;
+      color: #EAA400;
+    }
+
+    .wheel-container {
+      width: 100%;
+      max-width: 450px;
+      aspect-ratio: 1 / 1;
+      position: relative;
+      margin-top: 1.5rem;
+    }
+
+    .wheel {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 8px solid white;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      background: conic-gradient(
+        #E6007E 0deg 45deg,
+        #6A00A8 45deg 90deg,
+        #BDBDBD 90deg 135deg,
+        #FF1D15 135deg 180deg,
+        #FF8A00 180deg 225deg,
+        #FFD500 225deg 270deg,
+        #0055FF 270deg 315deg,
+        #34E347 315deg 360deg
+      );
+      transition: transform 6s cubic-bezier(0.1, 0.7, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .label {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      font-weight: 600;
+      font-size: 1rem;
+      color: white;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    }
+
+    .label span {
+      display: inline-block;
+      transform: translateY(35%) rotate(90deg);
+    }
+
+    .label:nth-child(1) { transform: rotate(22.5deg); }
+    .label:nth-child(2) { transform: rotate(67.5deg); }
+    .label:nth-child(3) { transform: rotate(112.5deg); color: #333; text-shadow: none; }
+    .label:nth-child(4) { transform: rotate(157.5deg); }
+    .label:nth-child(5) { transform: rotate(202.5deg); }
+    .label:nth-child(6) { transform: rotate(247.5deg); color: #333; text-shadow: none; }
+    .label:nth-child(7) { transform: rotate(292.5deg); }
+    .label:nth-child(8) { transform: rotate(337.5deg); }
+
+    #spinButton {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 20%;
+      height: 20%;
+      background-color: #222;
+      border-radius: 50%;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: 700;
+      cursor: pointer;
+      z-index: 10;
+      border: 5px solid white;
+    }
+
+    #spinButton:disabled {
+      background-color: #666;
+      cursor: not-allowed;
+    }
+
+    .wheel-pointer {
+      position: absolute;
+      top: -4px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 15px solid transparent;
+      border-right: 15px solid transparent;
+      border-top: 25px solid #C0392B;
+      z-index: 11;
+    }
+
+    .wheel-cost {
+      margin-top: 1rem;
+      font-size: 1.8rem;
+      font-weight: 700;
+    }
+
+    .wheel-cost span {
+      color: #EAA400;
+    }
+
+    #prizeResult {
+      margin-top: 1rem;
+      font-size: 1.25rem;
+      font-weight: 600;
+      min-height: 30px;
+      color: #D035E3;
+      text-align: center;
+    }
+
+    @media (max-width: 992px) {
+      body {
+        flex-direction: column;
+      }
+
+      .container {
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .label {
+        font-size: 0.8rem;
+      }
+
+      .label span {
+        transform: translateY(30%) rotate(90deg);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <aside class="sidebar">
+      <div class="card buycoins-card">
+        <h2>Seus BuyCoins</h2>
+        <div class="buycoins-balance">2 <span>●</span></div>
+        <p>Próximo Resgate</p>
+        <div class="next-redeem">02:03:22</div>
+        <button class="redeem-button">Resgatar</button>
+      </div>
+
+      <div class="card login-card">
+        <h3>Faça Login por 7 dias e ganhe 1 giro premium de graça</h3>
+        <div class="login-grid">
+          <div class="login-day">1</div><div class="login-day">2</div><div class="login-day">3</div>
+          <div class="login-day">4</div><div class="login-day">5</div><div class="login-day">6</div>
+          <div class="login-day day-premium">Giro Premium</div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <h1 class="wheel-title">Fortune Wheel: gire para ganhar prêmios variados</h1>
+      <div class="wheel-container">
+        <div class="wheel-pointer"></div>
+        <button id="spinButton">Spin</button>
+        <div class="wheel" id="wheel">
+          <div class="label"></div>
+          <div class="label"></div>
+          <div class="label"></div>
+          <div class="label"></div>
+          <div class="label"></div>
+          <div class="label"></div>
+          <div class="label"></div>
+          <div class="label"></div>
+        </div>
+      </div>
+      <p class="wheel-cost">Valor: <span>10 BuyCoins</span></p>
+      <p id="prizeResult"></p>
+    </main>
+  </div>
+
+  <script>
+    const wheel = document.getElementById('wheel');
+    const spinButton = document.getElementById('spinButton');
+    const prizeResult = document.getElementById('prizeResult');
+
+    const segmentPrizes = [
+      { nome: "Prêmio Rosa", cor: "#E6007E" },
+      { nome: "Prêmio Roxo", cor: "#6A00A8" },
+      { nome: "Prêmio Cinza", cor: "#BDBDBD" },
+      { nome: "Prêmio Vermelho", cor: "#FF1D15" },
+      { nome: "Prêmio Laranja", cor: "#FF8A00" },
+      { nome: "Prêmio Amarelo", cor: "#FFD500" },
+      { nome: "Prêmio Azul", cor: "#0055FF" },
+      { nome: "Prêmio Verde", cor: "#34E347" }
+    ];
+
+    let isSpinning = false;
+    let currentRotation = 0;
+    const segmentDegrees = 360 / segmentPrizes.length;
+
+    spinButton.addEventListener('click', () => {
+      if (isSpinning) return;
+
+      isSpinning = true;
+      spinButton.disabled = true;
+      prizeResult.textContent = 'Girando...';
+
+      const spinAngle = (360 * 6) + Math.floor(Math.random() * 360);
+      currentRotation += spinAngle;
+
+      wheel.style.transform = `rotate(${currentRotation}deg)`;
+
+      setTimeout(() => {
+        isSpinning = false;
+        spinButton.disabled = false;
+
+        const finalRotation = currentRotation % 360;
+        const effectiveAngle = ((270 - finalRotation + 360) % 360);
+        const winningSegmentIndex = Math.floor(effectiveAngle / segmentDegrees);
+        const prize = segmentPrizes[winningSegmentIndex];
+
+        prizeResult.innerHTML = `Você ganhou: <strong style="color:${prize.cor}">${prize.nome}</strong>!`;
+
+      }, 6000);
+    });
+  </script>
+</body>
+</html>
