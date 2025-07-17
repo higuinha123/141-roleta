@@ -36,34 +36,36 @@ body {
     background-color: var(--laranja-main);
     padding: 20px;
     display: flex;
+    
     overflow-x: auto;
-    gap: 3vw;
-    white-space: nowrap;
-    align-items: center;
-    justify-content: center;
+    gap: 16px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox */
+}
+
+.slider-container::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
 }
 
 .slider-item {
-    display: inline-block;
+    flex: 0 0 auto;
+    scroll-snap-align: start;
     background: #fff;
-    width: 200px;
-    margin-right: 16px;
+    width: 180px;
+    padding: 5px;
+    min-width: 160px;
+    max-width: 200px;
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-    vertical-align: top;
 }
 
 .slider-item img {
     width: 100%;
+    height: auto;
     border-radius: 10px 10px 0 0;
 }
 
-.slider-item .info {
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
 
 /* Separador */
 .separador {
@@ -168,4 +170,16 @@ body {
     flex-direction: column;
     gap: 2.6vw;
     font-size: 1.5rem;
+}
+
+@media screen and (max-width: 425px){
+  .listaCompras{
+    padding-block: 60px 200px;
+  }
+  h1{
+    font-size: 28px;
+  }
+  #bomDia{
+    font-size: 2rem;
+  }
 }

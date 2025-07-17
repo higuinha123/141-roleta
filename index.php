@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <header id="header"></header>
+
     <div class="first">
         <div class="titleOfertas">
             <h1 id="bomDia">Bom dia, <strong><?= htmlspecialchars($nome) ?>!</strong></h1>
@@ -19,11 +19,38 @@
         
         <div class="slider-container">
             <div class="slider-item">
+                <img src="img/chetos.webp" alt="Produto 5">
+                <div class="info">
+                    <strong>Cheetos</strong>
+                    <div class="preco">
+                        <br><p class="precoRiscado">R$ 13,00</p><p>R$ 9,00</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slider-item">
+                <img src="img/kro.webp" alt="Produto 5">
+                <div class="info">
+                    <strong>Kro Cebola</strong>
+                    <div class="preco">
+                        <br><p class="precoRiscado">R$ 6,00</p><p>R$ 2,00</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slider-item">
+                <img src="img/kro2.jpg" alt="Produto 5">
+                <div class="info">
+                    <strong>Kro Requeijão</strong>
+                    <div class="preco">
+                        <br><p class="precoRiscado">R$ 6,00</p><p>R$ 2,00</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slider-item">
                 <img src="img/oreo.webp" alt="Produto 1">
                 <div class="info">
                     <strong>Biscoito Oreo</strong>
                     <div class="preco">
-                        <br><p class="precoRiscado">R$ 12,00</p><p>R$ 9,00</p>
+                        <br><p class="precoRiscado">R$ 15,00</p><p>R$ 7,50</p>
                     </div>
                 </div>
             </div>
@@ -41,7 +68,7 @@
                 <div class="info">
                     <strong>Leite Elegê</strong>
                     <div class="preco">
-                        <br><p class="precoRiscado">R$ 12,00</p><p>R$ 9,00</p>
+                        <br><p class="precoRiscado">R$ 10,00</p><p>R$ 4,50</p>
                     </div>
                     </div>
             </div>
@@ -51,7 +78,7 @@
                 <div class="info">
                     <strong>Kit Kat</strong>
                     <div class="preco">
-                        <br><p class="precoRiscado">R$ 12,00</p><p>R$ 9,00</p>
+                        <br><p class="precoRiscado">R$ 8,00</p><p>R$ 4,00</p>
                     </div>
                 </div>
             </div>
@@ -61,6 +88,24 @@
                     <strong>Snickers</strong>
                     <div class="preco">
                         <br><p class="precoRiscado">R$ 12,00</p><p>R$ 9,00</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slider-item">
+                <img src="img/cocacola.jpg" alt="Produto 5">
+                <div class="info">
+                    <strong>Coca-Cola</strong>
+                    <div class="preco">
+                        <br><p class="precoRiscado">R$ 10,00</p><p>R$ 8,00</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slider-item">
+                <img src="img/doritos.jpg" alt="Produto 5">
+                <div class="info">
+                    <strong>Doritos</strong>
+                    <div class="preco">
+                        <br><p class="precoRiscado">R$ 14,00</p><p>R$ 10,00</p>
                     </div>
                 </div>
             </div>

@@ -17,7 +17,6 @@ $nome = $_SESSION['usuario_nome'] ?? 'Usuário'; // 'Usuário' como fallback
             </div>
         </div>
         <?php else: ?>
-            <span>Olá, <?php echo htmlspecialchars($_SESSION['usuario_nome']); ?>!</span>
                 <a href="pages/logout.php" class="btn">Sair</a>
                 <?php endif; ?>
 </header>

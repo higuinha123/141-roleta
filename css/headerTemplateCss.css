@@ -29,13 +29,34 @@ header{
 }
 a{
     color: white;
+    display: flex;
     padding: 10px;
     background-color: var(--laranja-main);
     border-radius: 7px;
     min-width: 45px;
+    align-items: center;
+    justify-content: center;
 }
 .lastItems{
     display: flex;
     align-items: center;
     gap: 30px;
+}
+@media screen and (max-width: 425px){
+    .user-icon{
+        & img{
+            width: 50px;
+        }
+    }
+    header{
+        & h1{
+            font-size: 0px;
+        }
+        & img.by {
+            width: 15vw;
+        }
+        & a {
+            padding: 1.2vw;
+        }
+    }
 }

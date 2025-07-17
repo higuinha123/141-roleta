@@ -11,7 +11,7 @@ create table usuario (
 );
 select * from usuario;
 
-insert into usuario (nome,cpf,email,senha) values ('frozza','12345678900','frozza@gmail.com','senha123');
+ALTER TABLE usuario MODIFY senha VARCHAR(255) NOT NULL;
 
 CREATE TABLE coleta_moedas (
     id INT AUTO_INCREMENT PRIMARY KEY,
