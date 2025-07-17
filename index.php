@@ -4,18 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buy At Home</title>
-    <script defer src="js/templateLoader.js"></script>
+    <?php include 'templates/headerTemplate.php'; ?>
     <link rel="stylesheet" href="css/headerTemplateCss.css">
     <link rel="stylesheet" href="css/index.css">
 </head>
+
 <body>
     <header id="header"></header>
     <div class="first">
         <div class="titleOfertas">
-            <h1 id="bomDia">Bom dia, <strong>Frozza!</strong></h1>
+            <h1 id="bomDia">Bom dia, <strong><?= htmlspecialchars($nome) ?>!</strong></h1>
             <h1>Confira as nossas <strong>ofertas</strong></h1>
         </div>
-        <!-- Slider de ofertas -->
+        
         <div class="slider-container">
             <div class="slider-item">
                 <img src="img/oreo.webp" alt="Produto 1">
@@ -66,12 +67,11 @@
         </div>
     </div>
         
-  <!-- Separador -->
+ 
   <div class="separador"></div>
 
-  <h2>Com base nos seus interesses: Corrida 🏃</h2>
 
-  <!-- Lista de compras -->
+ 
 
   <section class="listaCompras">
 
@@ -83,7 +83,7 @@
         </div>
         
         <ul id="lista">
-            <!-- Itens vão aparecer aqui -->
+        
         </ul>
         <button class="finalizarCompra">Finalizar</button>
     </section>

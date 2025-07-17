@@ -9,6 +9,7 @@ create table usuario (
     senha varchar(30),
     moedas int default 0
 );
+select * from usuario;
 
 insert into usuario (nome,cpf,email,senha) values ('frozza','12345678900','frozza@gmail.com','senha123');
 
@@ -59,6 +60,8 @@ create table usuario_opcoes (
 	FOREIGN KEY (opcao_id) REFERENCES opcoes(id),
     FOREIGN KEY (interesse_id) REFERENCES interesses(id)
 );
+
+select * from usuario_opcoes;
 
 create table roleta_premios (
 	id int auto_increment primary key,

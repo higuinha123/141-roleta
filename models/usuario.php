@@ -19,27 +19,30 @@ class Usuario
     }
 
     public function cadastrar()
-    {
-        
-        $query = "INSERT INTO {$this->table} (nome, cpf, email, senha) 
-                VALUES ('{$this->nome}', '{$this->cpf}', '{$this->email}', '{$this->senha}')";
-        
-        if ($this->conexao->query($query)) {
-            $usuario_id = $this->conexao->insert_id;
+{
+    $query = "INSERT INTO {$this->table} (nome, cpf, email, senha) VALUES (?, ?, ?, ?)";
+    $stmt = $this->conexao->prepare($query);
+    $stmt->bind_param("ssss", $this->nome, $this->cpf, $this->email, $this->senha);
 
-            
-            foreach ($this->opcoes as $opcao_id) {
-                foreach ($this->interesses as $interesse_id) {
-                    $sql = "INSERT INTO usuario_opcoes (usuario_id, opcao_id, interesse_id) 
-                            VALUES ('$usuario_id', '$opcao_id', '$interesse_id')";
-                    $this->conexao->query($sql);
-                }
+    if ($stmt->execute()) {
+        $usuario_id = $this->conexao->insert_id;
+
+        foreach ($this->opcoes as $opcao_id) {
+            foreach ($this->interesses as $interesse_id) {
+                $sql = "INSERT INTO usuario_opcoes (usuario_id, opcao_id, interesse_id) 
+                        VALUES (?, ?, ?)";
+                $stmt2 = $this->conexao->prepare($sql);
+                $stmt2->bind_param("iii", $usuario_id, $opcao_id, $interesse_id);
+                $stmt2->execute();
+                $stmt2->close();
             }
-
-            return true;
         }
 
-        return false;
+        $stmt->close();
+        return true;
     }
+
+    return false;
+}
 
 }

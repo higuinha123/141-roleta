@@ -4,9 +4,10 @@
     margin: 0;
     padding: 0;
     font-family: "Poppins", sans-serif;
+    text-decoration: none;
 }
 
-#header{
+header{
     background-color: #2c2c2c;
     color: white;
     padding: 15px 0;
@@ -25,4 +26,16 @@
             width: 30%;
             height: 30%;
         }
+}
+a{
+    color: white;
+    padding: 10px;
+    background-color: var(--laranja-main);
+    border-radius: 7px;
+    min-width: 45px;
+}
+.lastItems{
+    display: flex;
+    align-items: center;
+    gap: 30px;
 }
