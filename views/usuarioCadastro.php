@@ -34,7 +34,7 @@ $banco->fecharConexao();
         <div class="form-container">
             <h1 class="form-title">Cadastro</h1>
             
-            <form id="cadastroForm" action="../pages/cadastroUsuario.php?acao=cadastrar" method="post" target="_blank">
+            <form id="cadastroForm" action="../pages/cadastroUsuario.php?acao=cadastrar" method="post">
                 <div class="form-group">
                     <input type="text" name='nome' class="form-input" placeholder="Nome completo" required>
                 </div>
@@ -54,28 +54,29 @@ $banco->fecharConexao();
                 <div class="question-section">
                     <h2 class="question-title">Quais são do seu interesse?</h2>
                     <div class="options-grid">
-                        <button type="button" class="option-button" data-category="opcoes" data-value="bebidas">Bebidas</button>
-                        <button type="button" class="option-button" data-category="opcoes" data-value="snacks">Snacks</button>
-                        <button type="button" class="option-button" data-category="opcoes" data-value="chocolate">Chocolate</button>
-                        <button type="button" class="option-button" data-category="opcoes" data-value="congelados">Congelados</button>
-                        <button type="button" class="option-button" data-category="opcoes" data-value="temperos">Temperos</button>
-                        <button type="button" class="option-button" data-category="opcoes" data-value="higiene">Higiene</button>
-                        <button type="button" class="option-button" data-category="opcoes" data-value="outros">Outros</button>
+                        <button type="button" class="option-button" data-category="opcoes" data-value="1">Bebidas</button>
+                        <button type="button" class="option-button" data-category="opcoes" data-value="2">Snacks</button>
+                        <button type="button" class="option-button" data-category="opcoes" data-value="3">Chocolate</button>
+                        <button type="button" class="option-button" data-category="opcoes" data-value="4">Congelados</button>
+                        <button type="button" class="option-button" data-category="opcoes" data-value="5">Temperos</button>
+                        <button type="button" class="option-button" data-category="opcoes" data-value="6">Higiene</button>
+                        <button type="button" class="option-button" data-category="opcoes" data-value="7">Outros</button>
                     </div>
                 </div>
 
                 <div class="question-section">
                     <h2 class="question-title">O que você faz?</h2>
                     <div class="options-grid">
-                        <button type="button" class="option-button" data-category="interesses" data-value="trabalho">Trabalho</button>
-                        <button type="button" class="option-button" data-category="interesses" data-value="videogame">Videogame</button>
-                        <button type="button" class="option-button" data-category="interesses" data-value="corrida">Corrida</button>
-                        <button type="button" class="option-button" data-category="interesses" data-value="futebol">Futebol</button>
-                        <button type="button" class="option-button" data-category="interesses" data-value="estudos">Estudos</button>
-                        <button type="button" class="option-button" data-category="interesses" data-value="churrasco">Churrasco</button>
-                        <button type="button" class="option-button" data-category="interesses" data-value="outros">Outros</button>
+                        <button type="button" class="option-button" data-category="interesses" data-value="1">Trabalho</button>
+                        <button type="button" class="option-button" data-category="interesses" data-value="2">Videogame</button>
+                        <button type="button" class="option-button" data-category="interesses" data-value="3">Corrida</button>
+                        <button type="button" class="option-button" data-category="interesses" data-value="4">Futebol</button>
+                        <button type="button" class="option-button" data-category="interesses" data-value="5">Estudos</button>
+                        <button type="button" class="option-button" data-category="interesses" data-value="6">Churrasco</button>
+                        <button type="button" class="option-button" data-category="interesses" data-value="7">Outros</button>
                     </div>
                 </div>
+
 
                 <input type="submit" class="submit-button">
             </form>
@@ -83,74 +84,75 @@ $banco->fecharConexao();
     </main>
 
     <script>
-    // Alterna visualmente a seleção dos botões
+    document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById('cadastroForm');
+
+    // Alternar visual dos botões (selecionado ou não)
     document.querySelectorAll('.option-button').forEach(button => {
         button.addEventListener('click', function () {
             this.classList.toggle('selected');
         });
     });
 
-    document.getElementById('cadastroForm').addEventListener('submit', function (e) {
-        const inputs = this.querySelectorAll('.form-input');
-        const selectedOptions = {
-            opcoes: [],
-            interesses: []
-        };
+    form.addEventListener('submit', function (e) {
+    e.preventDefault(); // impede envio automático
 
-        document.querySelectorAll('.option-button.selected').forEach(button => {
-            const category = button.dataset.category;
-            const value = button.dataset.value;
-            selectedOptions[category].push(value);
-        });
+    const inputs = form.querySelectorAll('.form-input');
+    const selectedOptions = {
+        opcoes: [],
+        interesses: []
+    };
 
-        let isValid = true;
-        inputs.forEach(input => {
-            if (!input.value.trim()) {
-                isValid = false;
-                input.style.borderColor = '#ff4444';
-            } else {
-                input.style.borderColor = '#e0e0e0';
-            }
-        });
+    // coleta os botões selecionados
+    document.querySelectorAll('.option-button.selected').forEach(button => {
+        const category = button.dataset.category;
+        const value = button.dataset.value;
+        selectedOptions[category].push(value);
+    });
 
-        if (selectedOptions.opcoes.length === 0 || selectedOptions.interesses.length === 0) {
+    let isValid = true;
+    inputs.forEach(input => {
+        if (!input.value.trim()) {
             isValid = false;
-            alert('Por favor, selecione pelo menos uma opção em cada categoria.');
+            input.style.borderColor = '#ff4444';
+        } else {
+            input.style.borderColor = '#e0e0e0';
         }
-
-        if (!isValid) {
-            e.preventDefault();
-            return;
-        }
-
-        // ✅ Cria <input type="hidden"> com os valores selecionados
-        selectedOptions.opcoes.forEach(value => {
-            const input = document.createElement('input');
-            input.type = 'hidden';
-            input.name = 'opcoes[]';
-            input.value = value;
-            this.appendChild(input);
-        });
-
-        selectedOptions.interesses.forEach(value => {
-            const input = document.createElement('input');
-            input.type = 'hidden';
-            input.name = 'interesses[]';
-            input.value = value;
-            this.appendChild(input);
-        });
-
-        // Deixa o form ser enviado normalmente
     });
 
-    // Máscara para CPF
-    document.querySelector('input[placeholder="CPF"]').addEventListener('input', function (e) {
-        let value = e.target.value.replace(/\D/g, '');
-        value = value.replace(/(\d{3})(\d)/, '$1.$2');
-        value = value.replace(/(\d{3})(\d)/, '$1.$2');
-        value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
-        e.target.value = value;
+    if (selectedOptions.opcoes.length === 0 || selectedOptions.interesses.length === 0) {
+        isValid = false;
+        alert('Por favor, selecione pelo menos uma opção em cada categoria.');
+    }
+
+    if (!isValid) return;
+
+    // Remove inputs ocultos antigos (caso o usuário envie duas vezes)
+    form.querySelectorAll('input[type="hidden"]').forEach(el => el.remove());
+
+    // Adiciona novos inputs escondidos com os valores
+    selectedOptions.opcoes.forEach(value => {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'opcoes[]';
+        input.value = value;
+        form.appendChild(input);
     });
+
+    selectedOptions.interesses.forEach(value => {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'interesses[]';
+        input.value = value;
+        form.appendChild(input);
+    });
+
+    // Agora envia o formulário de forma manual
+    form.submit();
+});
+
+});
+
 </script>
 
 

@@ -20,7 +20,26 @@ class Usuario
 
     public function cadastrar()
     {
-        $query = "INSERT INTO {$this->table} (nome, cpf, email, senha, data_nasc) values ('{$this->nome}', '{$this->cpf}','{$this->email}','{$this->senha}','{$this->data_nasc}');";
-        return $this->conexao->query($query);
+        
+        $query = "INSERT INTO {$this->table} (nome, cpf, email, senha) 
+                VALUES ('{$this->nome}', '{$this->cpf}', '{$this->email}', '{$this->senha}')";
+        
+        if ($this->conexao->query($query)) {
+            $usuario_id = $this->conexao->insert_id;
+
+            
+            foreach ($this->opcoes as $opcao_id) {
+                foreach ($this->interesses as $interesse_id) {
+                    $sql = "INSERT INTO usuario_opcoes (usuario_id, opcao_id, interesse_id) 
+                            VALUES ('$usuario_id', '$opcao_id', '$interesse_id')";
+                    $this->conexao->query($sql);
+                }
+            }
+
+            return true;
+        }
+
+        return false;
     }
+
 }

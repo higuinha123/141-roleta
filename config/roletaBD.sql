@@ -1,6 +1,5 @@
 create database roletaBD;
 use roletaBD;
-drop database roletaBD;
 
 create table usuario (
 	id int auto_increment primary key,
@@ -10,6 +9,8 @@ create table usuario (
     senha varchar(30),
     moedas int default 0
 );
+
+insert into usuario (nome,cpf,email,senha) values ('frozza','12345678900','frozza@gmail.com','senha123');
 
 CREATE TABLE coleta_moedas (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -47,6 +48,7 @@ insert into interesses (descricao) values ('churrasco');
 insert into interesses (descricao) values ('outros');
 
 select * from opcoes;
+select * from interesses;
 
 create table usuario_opcoes (
 	usuario_id int,
@@ -66,7 +68,7 @@ create table roleta_premios (
 create table usario_premios (
 	usuario_id int,
     premio_id int,
-    primary key (usario_id, premio_id),
-	foreign key (usario_id) references usuario(id),
+    primary key (usuario_id, premio_id),
+	foreign key (usuario_id) references usuario(id),
     foreign key (premio_id) references roleta_premios(id)
 );
