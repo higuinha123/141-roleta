@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="../css/perfil.css">
+    <link rel="stylesheet" href="../css/headerTemplateCss.css">
+    <script defer src="../js/templateLoader.js"></script>
  </head>
 <body>
     <div class="header">
